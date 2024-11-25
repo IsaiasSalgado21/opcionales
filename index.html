@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            border: 1px solid #000000;
+            cursor: crosshair;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="dibujo" height="300" width="300"></canvas>
+    <script>
+        const dibujo = document.getElementById("dibujo");
+        const ctx = dibujo.getContext("2d");
+        
+        let dibujar = false;
+
+        ctx.lineWidth = 2;
+        ctx.lineCap = "round";
+        ctx.strokeStyle = "purple";
+
+        dibujo.addEventListener("mousedown", (e) => {
+            dibujar = true;
+            ctx.beginPath();
+            ctx.moveTo(e.offsetX, e.offsetY)
+        });
+
+        dibujo.addEventListener("mousemove", (e) =>{
+            if(dibujar){
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
+            }
+        });
+
+        dibujo.addEventListener("mouseup", () =>{
+            dibujar = false;
+            ctx.closePath();
+        });
+
+        dibujo.addEventListener("mouseleave", () => {
+            dibujar = false;
+        })
+    </script>
+</body>
+</html>
